@@ -1,63 +1,109 @@
-const add = function (a,b) {
-    return a+b;
+const add = function (a, b) {
+    return a + b;
 }
 
-const subtract = function (a,b) {
-    return a-b;
+const subtract = function (a, b) {
+    return a - b;
 }
 
-const multiply = function (a,b) {
-    return a*b;
-}
-const divide = function (a,b) {
-    return a/b;
+const multiply = function (a, b) {
+    return a * b;
 }
 
-let num1;
-let num2;
-let operator;
-let snum=0;
-let mainVar=0;
-
-function operate(num1,num2,operator)
-{
-  switch(operator)
-  {
-    case "+" :
-        add(num1,num2);
-        break;
-    case "-" :
-        subtract(num1,num2);
-        break;
-    case "*" :
-        multiply(num1,num2);
-        break;        
-    case "/" :
-        divide(num1,num2);
-        break;
-  }
+const divide = function (a, b) {
+    if (b === 0) return "Error";
+    return a / b;
 }
+
+let num1 = null;
+let num2 = null;
+let operator = null;
+let waitingForNextNumber = false;
+
+const screenB = document.querySelector(".screen");
+const digitMenu = document.querySelector(".digitButtons");
+const opMenu = document.querySelector(".opButtons");
+const resetBtn = document.querySelector(".clear");
+const equalBtn = document.querySelector(".equal");
+
+function operate(a, b, operator) {
+    a = Number(a);
+    b = Number(b);
+    switch (operator) {
+        case "+": return add(a, b);
+        case "-": return subtract(a, b);
+        case "*": return multiply(a, b);
+        case "/": return divide(a, b);
+        default: return b;
+    }
+}
+
+function clearAll() {
+    screenB.textContent = "";
+    num1 = null;
+    num2 = null;
+    operator = null;
+    waitingForNextNumber = false;
+}
+
 for (let i = 0; i <= 9; i++) {
-    let button = document.createElement('button');
+    const button = document.createElement('button');
     button.textContent = i;
-    document.querySelector('.digitButtons').appendChild(button);}
-
-let button = document.createElement('button');
-button.textContent ="=";
-document.querySelector('.opButtons').appendChild(button);
-
-let menu = document.querySelector(".digitButtons");
-menu.addEventListener('click',(event)=>
-{
-    let x = event.target.textContent
-    addScreen(x);
-})
-
-let screenB = document.querySelector(".screen");
-
-function addScreen(num){
-    snum = (snum * 10) + Number(num);
-    screenB.innerHTML=""
-    screenB.textContent=snum
-    mainVar=snum
+    digitMenu.appendChild(button);
 }
+
+digitMenu.addEventListener('click', function (event) {
+    if (event.target.tagName !== 'BUTTON') return;
+    const digit = event.target.textContent;
+    
+    if (waitingForNextNumber) {
+        screenB.textContent = digit;
+        waitingForNextNumber = false;
+    } else {
+        if (screenB.textContent === "0") {
+            screenB.textContent = digit;
+        } else {
+            screenB.textContent += digit;
+        }
+    }
+});
+
+opMenu.addEventListener('click', function (event) {
+    if (event.target.tagName !== 'BUTTON') return;
+    const newOperator = event.target.textContent;
+    
+    if (operator && !waitingForNextNumber) {
+        num2 = Number(screenB.textContent);
+        let result = operate(num1, num2, operator);
+        if (result === "Error") {
+            clearAll();
+            screenB.textContent = "Error";
+            return;
+        }
+        screenB.textContent = result;
+        num1 = result;
+    } else {
+        num1 = Number(screenB.textContent);
+    }
+    
+    operator = newOperator;
+    waitingForNextNumber = true;
+});
+
+equalBtn.addEventListener('click', function () {
+    if (operator && !waitingForNextNumber) {
+        num2 = Number(screenB.textContent);
+        let result = operate(num1, num2, operator);
+        if (result === "Error") {
+            clearAll();
+            screenB.textContent = "Error";
+            return;
+        }
+        screenB.textContent = result;
+        num1 = result;
+        operator = null;
+        waitingForNextNumber = true;
+    }
+});
+
+resetBtn.addEventListener('click', clearAll);
