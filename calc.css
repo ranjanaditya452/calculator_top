@@ -1,0 +1,135 @@
+/* Reset some default browser styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    background: #e6eaf0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    height: 100vh;
+}
+
+/* Center the calculator */
+.mainContainer {
+    background: #222831;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    width: 340px;
+    margin: 60px auto;
+    padding: 28px 18px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Display screen */
+.screen {
+    background: #393e46;
+    color: #fff;
+    font-size: 2.2rem;
+    text-align: right;
+    border-radius: 8px;
+    padding: 18px 16px;
+    margin-bottom: 26px;
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+    overflow-x: auto;
+}
+
+/* Button container */
+.buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Operator buttons */
+.opButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.opButtons button {
+    background: #00adb5;
+    color: #fff;
+    border: none;
+    font-size: 1.3rem;
+    border-radius: 7px;
+    padding: 13px 0;
+    width: 22%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.opButtons button:hover {
+    background: #00969e;
+}
+
+/* Digit buttons grid */
+.digitButtons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.digitButtons button {
+    background: #eeeeee;
+    color: #222831;
+    border: none;
+    font-size: 1.3rem;
+    border-radius: 7px;
+    padding: 14px 0;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.digitButtons button:hover {
+    background: #d3d3d3;
+}
+
+/* Special buttons */
+.clear, .equal {
+    width: 48%;
+    margin: 0 1%;
+    padding: 13px 0;
+    border: none;
+    border-radius: 7px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.clear {
+    background: #ff6363;
+    color: #fff;
+}
+
+.clear:hover {
+    background: #d94141;
+}
+
+.equal {
+    background: #222831;
+    color: #00adb5;
+    border: 2px solid #00adb5;
+}
+
+.equal:hover {
+    background: #00adb5;
+    color: #fff;
+}
+
+/* Responsive for mobile */
+@media (max-width: 400px) {
+    .mainContainer {
+        width: 98vw;
+        padding: 10px 2vw 24px 2vw;
+    }
+    .screen {
+        font-size: 1.2rem;
+        padding: 10px 5px;
+    }
+}

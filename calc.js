@@ -80,7 +80,7 @@ opMenu.addEventListener('click', function (event) {
             screenB.textContent = "Error";
             return;
         }
-        screenB.textContent = result;
+        screenB.textContent = result.toFixed(2);
         num1 = result;
     } else {
         num1 = Number(screenB.textContent);
@@ -99,7 +99,7 @@ equalBtn.addEventListener('click', function () {
             screenB.textContent = "Error";
             return;
         }
-        screenB.textContent = result;
+        screenB.textContent = result.toFixed(2);
         num1 = result;
         operator = null;
         waitingForNextNumber = true;
